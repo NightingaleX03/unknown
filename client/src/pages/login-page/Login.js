@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import axios from "axios";
+// import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import loginImage from "../../assets/images/login.png";
 
@@ -10,23 +10,24 @@ function Login() {
   const navigate = useNavigate();
 
   const handleSubmit = (e) => {
-    e.preventDefault();
-    axios
-      .post("https://rentease-b5mm.onrender.com/login", { email, password })
-      // .post("http://localhost:3001/login", { email, password })
-      .then((result) => {
-        console.log(result);
-        if (result.data.message === "Success") {
-          // Assuming the response contains user data including account type
-          const userType = result.data.accountType;
-          if (userType === "Homeowner") {
-            navigate("/sellerpage"); // Direct to homeowner page
-          } else {
-            navigate("/listings"); // Direct to listings page
-          }
-        }
-      })
-      .catch((err) => console.log(err));
+    navigate("/");
+    // e.preventDefault();
+    // axios
+    //   // .post("https://rentease-b5mm.onrender.com/login", { email, password })
+    //   .post("http://localhost:3001/login", { email, password })
+    //   .then((result) => {
+    //     console.log(result);
+    //     if (result.data.message === "Success") {
+    //       // Assuming the response contains user data including account type
+    //       const userType = result.data.accountType;
+    //       if (userType === "Homeowner") {
+    //         navigate("/"); // Direct to homeowner page
+    //       } else {
+    //         navigate("/"); // Direct to listings page
+    //       }
+    //     }
+    //   })
+    //   .catch((err) => console.log(err));
   };
   return (
     <div className="min-h-lvh flex w-full justify-center">
