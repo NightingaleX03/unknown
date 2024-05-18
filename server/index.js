@@ -1,30 +1,30 @@
-const express = require("express");
 const mongoose = require("mongoose");
+const User = require("./models/User");
+
+const express = require("express");
 const cors = require("cors");
-const RegisterModel = require("./models/Register");
-const ListingModel = require("./models/Listings");
 
 const app = express();
 app.use(cors());
 app.use(express.json());
 
-const listingsMongoUrl =
-  "mongodb+srv://FrancescaGalang:zIxWkoXIOgieSd4B@cluster0.qywthgw.mongodb.net/rentease";
-mongoose.connect(listingsMongoUrl);
+const mongoUrl =
+  "mongodb+srv://khaleed:PuFLDqOZ99hWFgQB@test.azixyz4.mongodb.net/unknown";
+mongoose.connect(mongoUrl);
 
-app.get("/getListings", (req, res) => {
-  ListingModel.find()
-    .then((listings) => res.json(listings))
+app.post("/signup", async (req, res) => {
+  User.create(req.body)
+    .then((users) => res.json(users))
     .catch((err) => res.json(err));
+  console.log("user created");
 });
 
 app.post("/login", (req, res) => {
   const { email, password } = req.body;
-  RegisterModel.findOne({ email: email }).then((user) => {
+  User.findOne({ email: email }).then((user) => {
     if (user) {
-      console.log(user.accountType);
       if (user.password === password) {
-        res.json({ message: "Success", accountType: user.accountType }); // Include account type in response
+        res.json({ message: "Success" });
       } else {
         res.json("The password is incorrect");
       }
@@ -32,12 +32,6 @@ app.post("/login", (req, res) => {
       res.json("No record found");
     }
   });
-});
-
-app.post("/signup", (req, res) => {
-  RegisterModel.create(req.body)
-    .then((users) => res.json(users))
-    .catch((err) => res.json(err));
 });
 
 app.listen(3001, () => {
