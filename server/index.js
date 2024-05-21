@@ -8,8 +8,7 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-const mongoUrl =
-  "mongodb+srv://khaleed:PuFLDqOZ99hWFgQB@test.azixyz4.mongodb.net/unknown";
+const mongoUrl = ""
 mongoose.connect(mongoUrl);
 
 app.post("/signup", async (req, res) => {
